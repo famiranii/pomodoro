@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+:root {
+    --red: #471515;
+    --red-bg: rgba(255, 76, 76, 0.15);
+
+    --green:#14401D;
+    --green-bg:rgba(77, 218, 110, 0.15);
+
+    --blue:#153047;
+    --blue-bg:rgba(76, 172, 255, 0.15);
+  }
+
+.pomo-logo{
+    padding-top: 15px;
+    background-color:  #471515;
+    border-radius: 25px;
+}
+
+.title{
+    color: #471515;
+}
+
+
+.focus, .short-break, .long-break {
+    box-shadow: 48px 0px 48px -32px rgba(0, 0, 0, 0.25);
+    padding: 0px 48px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.focus {
+    background-color: #FFF2F2;
+}
+
+.short-break {
+    background-color: #F2FFF5;
+}
+
+.long-break {
+    background-color: #F2F9FF;
+}
+
+.focus-title{
+    border-color: var(--red);
+    background-color: var(--red-bg);
+    color: var(--red);
+}
+
+.focus-timer, .short-break-timer, .long-break-timer{
+    font-size: 210px;
+    line-height: 0.4;
+}
+
+.focus-timer{
+    color: var(--red);
+}
+
+.focus-btn{
+   background-color: var(--red-bg);
+}
+
+.focus-play-btn{
+    background-color:  rgba(255, 76, 76, 0.71);
+}
+
+.short-break-title{ 
+    border-color: var(--green);
+    background-color: var(--green-bg);
+    color: var(--green);
+}
+
+.short-break-timer{
+    color: var(--green);
+}
+
+.short-break-btn{
+    background-color: var(--green-bg);
+}
+
+.short-break-play-btn{
+    background-color: rgba(77, 218, 110, 0.62);
+}
+
+.long-break-title{ 
+    border-color: var(--blue);
+    background-color: var(--blue-bg);
+    color: var(--blue);
+}
+
+.long-break-timer{
+    color: var(--blue);
+}
+
+.long-break-btn{
+    background-color: var(--blue-bg);
+}
+
+.long-break-play-btn{
+    background-color: rgba(76, 172, 255, 0.62);
+}
+
