@@ -1,6 +1,6 @@
 <template>
-    <div class="focus py-32 absolute w-5/12 z-20">
-        <div class="focus-title flex items-center px-3 py-0.5 mb-16 font-medium space-x-1.5 text-lg rounded-3xl border-2">
+    <div :class="timerClass.bgColor" class="py-32 w-5/12">
+        <div :class="timerClass.title" class="flex items-center px-3 py-0.5 mb-16 font-medium space-x-1.5 text-lg rounded-3xl border-2">
             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="ph:brain-fill" clip-path="url(#clip0_104_1889)">
                     <path id="Vector"
@@ -16,11 +16,11 @@
             <span>Focus</span>
         </div>
         <div class="flex flex-col items-center">
-            <span class="focus-timer">25</span>
-            <span class="focus-timer pt-20 pb-10">00</span>
+            <span :class="timerClass.numberColor">{{ showMinute }}</span>
+            <span :class="timerClass.numberColor" class="pt-20 pb-10">{{ showSeconds }}</span>
         </div>
         <div class="flex items-center space-x-3 mt-6">
-            <button class="focus-btn w-12 h-12 rounded-2xl flex items-center justify-center">
+            <button :class="timerClass.btnColor" class="w-12 h-12 rounded-2xl flex items-center justify-center">
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="ph:dots-three-outline-fill">
                         <path id="Vector"
@@ -29,17 +29,24 @@
                     </g>
                 </svg>
             </button>
-            <button class="focus-play-btn w-20 h-16 rounded-2xl flex items-center justify-center">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button @click="runOrpauseTimer" :class="timerClass.playBtnColor" class="w-20 h-16 rounded-2xl flex items-center justify-center">
+                <svg v-if="isIconChanged" width="32" height="32" viewBox="0 0 32 32" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <g id="ph:play-fill">
                         <path id="Vector"
                             d="M30 16C29.9993 16.3439 29.9104 16.6818 29.7419 16.9816C29.5734 17.2814 29.3309 17.533 29.0375 17.7125L11.0375 28.7C10.7377 28.89 10.3914 28.9939 10.0365 29.0006C9.68161 29.0072 9.33171 28.9162 9.02501 28.7375C8.71377 28.5667 8.45432 28.3152 8.27394 28.0095C8.09356 27.7037 7.99893 27.355 8.00001 27V4.99996C7.99893 4.64496 8.09356 4.29623 8.27394 3.99047C8.45432 3.68471 8.71377 3.43322 9.02501 3.26246C9.33171 3.08376 9.68161 2.99275 10.0365 2.99936C10.3914 3.00597 10.7377 3.10996 11.0375 3.29996L29.0375 14.2875C29.3309 14.4669 29.5734 14.7185 29.7419 15.0183C29.9104 15.3181 29.9993 15.6561 30 16Z"
                             fill="#471515" />
                     </g>
                 </svg>
-
+                <svg v-else width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="ph:pause-fill">
+                        <path id="Vector"
+                            d="M22.5628 5.39907V21.8769C22.5628 22.3139 22.3892 22.7331 22.0802 23.0421C21.7712 23.3511 21.3521 23.5247 20.915 23.5247H17.2075C16.7705 23.5247 16.3514 23.3511 16.0424 23.0421C15.7333 22.7331 15.5597 22.3139 15.5597 21.8769V5.39907C15.5597 4.96205 15.7333 4.54293 16.0424 4.23391C16.3514 3.92489 16.7705 3.75128 17.2075 3.75128H20.915C21.3521 3.75128 21.7712 3.92489 22.0802 4.23391C22.3892 4.54293 22.5628 4.96205 22.5628 5.39907ZM9.79248 3.75128H6.08497C5.64795 3.75128 5.22882 3.92489 4.9198 4.23391C4.61078 4.54293 4.43718 4.96205 4.43718 5.39907V21.8769C4.43718 22.3139 4.61078 22.7331 4.9198 23.0421C5.22882 23.3511 5.64795 23.5247 6.08497 23.5247H9.79248C10.2295 23.5247 10.6486 23.3511 10.9576 23.0421C11.2667 22.7331 11.4403 22.3139 11.4403 21.8769V5.39907C11.4403 4.96205 11.2667 4.54293 10.9576 4.23391C10.6486 3.92489 10.2295 3.75128 9.79248 3.75128V3.75128Z"
+                            fill="#471515" />
+                    </g>
+                </svg>
             </button>
-            <button class="focus-btn w-12 h-12 rounded-2xl flex items-center justify-center">
+            <button :class="timerClass.btnColor" class="w-12 h-12 rounded-2xl flex items-center justify-center">
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="ph:fast-forward-fill" clip-path="url(#clip0_104_1901)">
                         <path id="Vector"
@@ -60,8 +67,49 @@
 <script>
 export default {
     name: 'focusTime',
+    data() {
+        return {
+            minute: 25,
+            seconds: 0,
+            showMinute: 0,
+            showSeconds: 0,
+            intervalId: null,
+            isIconChanged: true
+        }
+    },
+    props: {
+        timerClass: Object
+    },
+    created() {
+        this.seconds = this.minute * 60
+        this.showSeconds = this.padZero(this.showSeconds)
+        this.showMinute = this.padZero(this.minute)
+        console.log(this.timerClass);
+    },
+    methods: {
+        runOrpauseTimer() {
+            if (this.isIconChanged) {
+                this.intervalId = setInterval(this.decreasTime, 1000)
+                this.isIconChanged = false
+            } else {
+                this.isIconChanged = true
+                clearInterval(this.intervalId)
+            }
+        },
+        decreasTime() {
+            this.seconds--;
+            this.showMinute = Math.floor(this.seconds / 60);
+            this.showSeconds = this.seconds % 60
+        },
+    },
+    computed: {
+        padZero() {
+            return number => number.toString().padStart(2, '0');
+        }
+    }
 
 }
+
 </script>
 
 <style></style>

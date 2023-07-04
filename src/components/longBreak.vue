@@ -1,5 +1,5 @@
 <template>
-    <div class="long-break py-32 absolute w-5/12  end-0 z-1">
+    <div class="long-break py-32 w-5/12">
         <div
             class="long-break-title flex items-center px-3 py-0.5 mb-16 font-medium space-x-1.5 text-lg rounded-3xl border-2">
             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">

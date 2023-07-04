@@ -23,11 +23,14 @@
 
 
 
-      <div class="cornometres col-span-3 grid relative">
-        <focusTime></focusTime>
-        <shortBreak></shortBreak>
-        <longBreak></longBreak>
-
+      <div class="cornometres col-span-3 flex relative">
+        <focus-time :timerClass="focusClass" @click="breakClicked = 1"
+          :class="{ 'absolute z-20': breakClicked === 1, 'mx-auto z-10': breakClicked !== 1 }"></focus-time>
+        <focusTime :timerClass="shortBreakClass" @click="breakClicked = 2"
+          :class="{ 'mx-auto z-10': breakClicked === 1, 'absolute z-20': breakClicked === 2, 'absolute end-0 z-1': breakClicked === 3 }">
+        </focusTime>
+        <focusTime :timerClass="longBreakClass" @click="breakClicked = 3"
+          :class="{ 'absolute end-0 z-1': breakClicked !== 3, 'absolute z-20': breakClicked === 3 }"></focusTime>
       </div>
     </div>
   </div>
@@ -35,15 +38,20 @@
 
 <script>
 import focusTime from './components/focusTime.vue'
-import longBreak from './components/longBreak.vue'
-import shortBreak from './components/shortBreak.vue'
 export default {
   name: 'App',
   components: {
     focusTime,
-    shortBreak,
-    longBreak
-  }
+  },
+  data() {
+    return {
+      breakClicked: 1,
+      focusClass: { bgColor: 'focus', title: 'focus-title', numberColor: 'focus-timer', btnColor: 'focus-btn', playBtnColor: 'focus-play-btn' },
+      shortBreakClass: { bgColor: 'short-break', title: 'short-break-title', numberColor: 'short-break-timer', btnColor: 'short-break-btn', playBtnColor: 'short-break-play-btn' },
+      longBreakClass: { bgColor: 'long-break', title: 'long-break-title', numberColor: 'long-break-timer', btnColor: 'long-break-btn', playBtnColor: 'long-break-play-btn' },
+      
+
+    }
+  },
 }
 </script>
-
