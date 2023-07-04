@@ -24,13 +24,13 @@
 
 
       <div class="cornometres col-span-3 flex relative">
-        <focus-time :timerClass="focusClass" @click="breakClicked = 1"
-          :class="{ 'absolute z-20': breakClicked === 1, 'mx-auto z-10': breakClicked !== 1 }"></focus-time>
-        <focusTime :timerClass="shortBreakClass" @click="breakClicked = 2"
-          :class="{ 'mx-auto z-10': breakClicked === 1, 'absolute z-20': breakClicked === 2, 'absolute end-0 z-1': breakClicked === 3 }">
+        <focus-time :pomodoroTime="focusTime" :timerClass="focusClass" @click="breakClicked = 1"
+          :class="{ 'absolute z-30': breakClicked === 1, 'mx-auto z-20': breakClicked !== 1 }"></focus-time>
+        <focusTime :pomodoroTime="shortBreakTime" :timerClass="shortBreakClass" @click="breakClicked = 2"
+          :class="{ 'mx-auto z-20': breakClicked === 1, 'absolute z-30': breakClicked === 2, 'absolute end-0 z-1': breakClicked === 3 }">
         </focusTime>
-        <focusTime :timerClass="longBreakClass" @click="breakClicked = 3"
-          :class="{ 'absolute end-0 z-1': breakClicked !== 3, 'absolute z-20': breakClicked === 3 }"></focusTime>
+        <focusTime :pomodoroTime="longBreakTime" :timerClass="longBreakClass" @click="breakClicked = 3"
+          :class="{ 'absolute end-0 z-1': breakClicked !== 3, 'absolute z-30': breakClicked === 3 }"></focusTime>
       </div>
     </div>
   </div>
@@ -46,10 +46,12 @@ export default {
   data() {
     return {
       breakClicked: 1,
-      focusClass: { bgColor: 'focus', title: 'focus-title', numberColor: 'focus-timer', btnColor: 'focus-btn', playBtnColor: 'focus-play-btn' },
-      shortBreakClass: { bgColor: 'short-break', title: 'short-break-title', numberColor: 'short-break-timer', btnColor: 'short-break-btn', playBtnColor: 'short-break-play-btn' },
-      longBreakClass: { bgColor: 'long-break', title: 'long-break-title', numberColor: 'long-break-timer', btnColor: 'long-break-btn', playBtnColor: 'long-break-play-btn' },
-      
+      focusClass: { timerStyle: 'focus', titleName: 'Focus', bgColor: 'focus-color', title: 'focus-title', numberColor: 'focus-timer', btnColor: 'focus-btn', playBtnColor: 'focus-play-btn', bttnColor: '#471515' },
+      shortBreakClass: { timerStyle: 'short-break', titleName: 'Short Break', bgColor: 'short-break-color', title: 'short-break-title', numberColor: 'short-break-timer', btnColor: 'short-break-btn', playBtnColor: 'short-break-play-btn', bttnColor: '#14401D' },
+      longBreakClass: { timerStyle: 'long-break', titleName: 'Long Break', bgColor: 'long-break-color', title: 'long-break-title', numberColor: 'long-break-timer', btnColor: 'long-break-btn', playBtnColor: 'long-break-play-btn', bttnColor: '#153047' },
+      focusTime: 25,
+      shortBreakTime: 5,
+      longBreakTime: 15,
 
     }
   },

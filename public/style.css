@@ -33,15 +33,15 @@
     justify-content: center;
 }
 
-.focus {
+.focus-color {
     background-color: #FFF2F2;
 }
 
-.short-break {
+.short-break-color {
     background-color: #F2FFF5;
 }
 
-.long-break {
+.long-break-color {
     background-color: #F2F9FF;
 }
 
@@ -103,3 +103,15 @@
 .long-break-play-btn{
     background-color: rgba(76, 172, 255, 0.62);
 }
+
+.dropdown{
+    width: 160px;
+    height: 100px;
+    position: absolute;
+    top: 69%;
+    left: 8%;
+    border-radius: 12px;
+    box-shadow: 0px 5.5px 16px 0px rgba(0, 0, 0, 0.19), 0px 1px 6px 0px rgba(0, 0, 0, 0.04);
+    padding: 8px;
+}
+
