@@ -23,15 +23,15 @@
             <span :class="timerClass.numberColor">{{ showMinute }}</span>
             <span :class="timerClass.numberColor" class="pt-20 pb-10">{{ showSeconds }}</span>
 
-            <div :class="{'hidden': showDropdown, [timerClass.bgColor]: true}" class="dropdown">
+            <div :class="{ 'hidden': showDropdown, [timerClass.bgColor]: true }" class="dropdown">
                 <drop-down :svgColor="timerClass.bttnColor"></drop-down>
             </div>
         </div>
 
-        
+
 
         <div class="flex items-center space-x-3 mt-3 z-10">
-            <button @click="toggleDropdown" :class="timerClass.btnColor"
+            <button id="dropdownBtn" @click="toggleDropdown" :class="timerClass.btnColor"
                 class="w-12 h-12 rounded-2xl flex items-center justify-center">
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="ph:dots-three-outline-fill">
@@ -73,7 +73,7 @@
                     </defs>
                 </svg>
             </button>
-            
+
         </div>
     </div>
 </template>
@@ -98,15 +98,16 @@ export default {
     },
     props: {
         timerClass: Object,
-        pomodoroTime: parseInt,
+        pomodoroTime:{
+            type:parseInt,
+            default:''
+        }
     },
     created() {
         this.seconds = this.minute * 60
         this.showSeconds = this.padZero(this.showSeconds)
         this.showMinute = this.padZero(this.minute)
-        console.log(this.timerClass);
-        console.log(this.pomodoroTime);
-        window.onload = function () { const anchorTags = document.querySelectorAll('a'); anchorTags.forEach(function (a) { a.addEventListener('click', function (ev) { ev.preventDefault(); }) }); const dropdownEl = document.querySelector('[data-dropdown-toggle]'); if (dropdownEl) { dropdownEl.click(); } const modalEl = document.querySelector('[data-modal-toggle]'); if (modalEl) { modalEl.click(); } const dateRangePickerEl = document.querySelector('[data-rangepicker] input'); if (dateRangePickerEl) { dateRangePickerEl.focus(); } const drawerEl = document.querySelector('[data-drawer-show]'); if (drawerEl) { drawerEl.click(); } }
+        document.addEventListener('click', this.handleDocumentClick);
     },
     methods: {
         runOrpauseTimer() {
@@ -124,8 +125,16 @@ export default {
             this.showSeconds = this.seconds % 60
         },
         toggleDropdown() {
-            this.showDropdown=!this.showDropdown
-        }
+            this.showDropdown = !this.showDropdown
+        },
+        handleDocumentClick(event) {
+            if (this.$el.contains(event.target)) {
+                console.log(event.target);
+                return;
+            } else {
+                this.showDropdown = true;
+            }
+        },
     },
     computed: {
         padZero() {
