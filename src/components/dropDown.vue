@@ -33,7 +33,7 @@
             </svg>
         </div>
     </div>
-    <div class="grid grid-cols-3 items-center cursor-pointer">
+    <div @click="showmodal" class="grid grid-cols-3 items-center cursor-pointer">
         <div class="col-span-2 flex">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="ph:chart-bar-fill">
@@ -102,16 +102,20 @@
             </svg>
         </div>
     </div>
-
-    
 </template>
 
 <script>
 export default {
     props: {
         svgColor: String
-    }
+    },
+    methods: {
+        showmodal() {
+            this.$emit('showModal',this.svgColor)
+        }
+    },
 }
+
 </script>
 
 <style></style>

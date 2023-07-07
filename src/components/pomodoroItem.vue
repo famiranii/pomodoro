@@ -20,11 +20,11 @@
 
 
         <div class="flex flex-col items-center relative">
-            <span :class="timerClass.numberColor">{{ showMinute }}</span>
+            <span v-text="isIconChanged ? padZero(pomodoroTime) : showMinute" :class="timerClass.numberColor"></span>
             <span :class="timerClass.numberColor" class="pt-20 pb-10">{{ showSeconds }}</span>
 
             <div :class="{ 'hidden': showDropdown, [timerClass.bgColor]: true }" class="dropdown">
-                <drop-down :svgColor="timerClass.bttnColor"></drop-down>
+                <drop-down :svgColor="timerClass.bttnColor" @showModal="showModal"></drop-down>
             </div>
         </div>
 
@@ -87,9 +87,8 @@ export default {
     name: 'focusTime',
     data() {
         return {
-            minute: this.pomodoroTime,
             seconds: 0,
-            showMinute: 0,
+            minute: this.pomodoroTime,
             showSeconds: 0,
             intervalId: null,
             isIconChanged: true,
@@ -98,19 +97,18 @@ export default {
     },
     props: {
         timerClass: Object,
-        pomodoroTime:{
-            type:parseInt,
-            default:''
+        pomodoroTime: {
+            type: parseInt,
+            default: ''
         }
     },
     created() {
-        this.seconds = this.minute * 60
         this.showSeconds = this.padZero(this.showSeconds)
-        this.showMinute = this.padZero(this.minute)
         document.addEventListener('click', this.handleDocumentClick);
     },
     methods: {
         runOrpauseTimer() {
+            this.seconds = this.pomodoroTime * 60
             if (this.isIconChanged) {
                 this.intervalId = setInterval(this.decreasTime, 1000)
                 this.isIconChanged = false
@@ -121,28 +119,32 @@ export default {
         },
         decreasTime() {
             this.seconds--;
-            this.showMinute = Math.floor(this.seconds / 60);
-            this.showSeconds = this.seconds % 60
+            this.minute = this.padZero(Math.floor(this.seconds / 60))
+            this.showSeconds = this.padZero(this.seconds % 60)
+            this.showMinute = this.minute
         },
         toggleDropdown() {
             this.showDropdown = !this.showDropdown
         },
         handleDocumentClick(event) {
             if (this.$el.contains(event.target)) {
-                console.log(event.target);
                 return;
             } else {
                 this.showDropdown = true;
             }
         },
+        showModal(color){
+            this.$emit('showModal',color)
+        }
     },
     computed: {
         padZero() {
             return number => number.toString().padStart(2, '0');
-        }
-    }
-
+        },
+    },
 }
+
+
 
 </script>
 
