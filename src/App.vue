@@ -38,7 +38,7 @@
     </div>
 
     <modalSeting v-for="(item, index) in modalColor" :key="index" :color="item" :class="item.class"
-     @closeModal="closeModal" class=" z-50 absolute self-center justify-self-center"></modalSeting>
+     @closeModal="closeModal"  class=" z-50 absolute self-center justify-self-center"></modalSeting>
 
   </div>
 </template>

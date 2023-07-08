@@ -12,7 +12,8 @@
     </div>
     <div>
       <span>Dark mode</span>
-      <div class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
+      <div @click="renderDarkMode" :class="[{ 'justify-end': darkMode }, { 'bg-blue-500': darkMode }]"
+        class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
         <div :class="color.bgColor" class="w-5 h-5 rounded-full"></div>
       </div>
     </div>
@@ -44,19 +45,17 @@
       <span>Pomodoros until long break</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
         <div class="w-2/3 flex items-center justify-center">
-          {{$store.state.pomodorosUntilLongBreak }}
+          {{ $store.state.pomodorosUntilLongBreak }}
         </div>
         <div class="w-1/3 divide-y">
-          <button @click="incrementPomodorosUntilLongBreak"
-            class="h-1/2 flex items-center justify-center">
+          <button @click="incrementPomodorosUntilLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 5L20.1962 12.5H9.80385L15 5Z" :fill=color.btnColor />
               <path d="M0 0H30H0ZM30 18H0H30ZM-1 18V0H1V18H-1ZM30 0V18V0Z" fill="black" fill-opacity="0.15"
                 mask="url(#path-1-inside-1_210_2290)" />
             </svg>
           </button>
-          <button @click="decrementPomodorosUntilLongBreak"
-            class="h-1/2 flex items-center justify-center">
+          <button @click="decrementPomodorosUntilLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="29" height="20" viewBox="0 0 29 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M15 15.5L9.80385 8L20.1962 8L15 15.5Z" :fill=color.btnColor />
               <path d="M-1 -1H29V1H1L-1 -1ZM29 20H0H29ZM-1 20V-1L1 1V20H-1ZM29 0V20V0Z" fill="black" fill-opacity="0.15"
@@ -70,7 +69,7 @@
       <span>Short break lenght</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
         <div class="w-2/3 flex items-center justify-center">
-          {{ $store.state.shortBreakTime  }}
+          {{ $store.state.shortBreakTime }}
         </div>
         <div class="w-1/3 divide-y">
           <button @click="incrementShortBreak" class="h-1/2 flex items-center justify-center">
@@ -94,7 +93,7 @@
       <span>Long break lenght</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
         <div class="w-2/3 flex items-center justify-center">
-          {{$store.state.longBreakTime }}
+          {{ $store.state.longBreakTime }}
         </div>
         <div class="w-1/3 divide-y">
           <button @click="incrementLongBreak" class="h-1/2 flex items-center justify-center">
@@ -116,19 +115,22 @@
     </div>
     <div>
       <span>Auto resume timer</span>
-      <div class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
+      <div @click="renderAutoResume" :class="[{ 'justify-end': autoResume }, { 'bg-blue-500': autoResume }]"
+        class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
         <div :class="color.bgColor" class="w-5 h-5 rounded-full "></div>
       </div>
     </div>
     <div>
       <span>Sound</span>
-      <div class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
+      <div @click="renderSound" :class="[{ 'justify-end': sound }, { 'bg-blue-500': sound }]"
+        class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
         <div :class="color.bgColor" class="w-5 h-5 rounded-full"></div>
       </div>
     </div>
     <div>
       <span>Notifications</span>
-      <div class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
+      <div @click="renderNotifications" :class="[{ 'justify-end': notifications }, { 'bg-blue-500': notifications }]"
+        class="setting-btn flex rounded-full w-10 h-5 items-center p-1">
         <div :class="color.bgColor" class="w-5 h-5 rounded-full"></div>
       </div>
     </div>
@@ -137,14 +139,18 @@
 </template>
 
 <script>
-import { mapState , mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     color: Object
   },
   data() {
     return {
-      closeModalSit:false
+      closeModalSit: false,
+      darkMode: false,
+      autoResume: false,
+      sound: false,
+      notifications:false,
     }
   },
   methods: {
@@ -158,11 +164,27 @@ export default {
       'incrementShortBreak',
       'decrementShortBreak'
     ]),
-    closeModal(){
+    closeModal() {
       this.closeModalSit = true
-      this.$emit("closeModal",this.closeModalSit)
+      this.$emit("closeModal", this.closeModalSit)
       this.closeModalSit = false
-    }
+    },
+    renderDarkMode() {
+      this.darkMode = !this.darkMode
+      this.$emit('renderDarkMode', this.darkMode)
+    },
+    renderAutoResume() {
+      this.autoResume = !this.autoResume
+      this.$emit('renderAutoResume', this.autoResume)
+    },
+    renderSound() {
+      this.sound = !this.sound
+      this.$emit('renderSound', this.sound)
+    },
+    renderNotifications() {
+      this.notifications = !this.notifications
+      this.$emit('renderNotifications', this.notifications)
+    },
   },
   computed: {
     ...mapState([
