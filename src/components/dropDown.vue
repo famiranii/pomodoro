@@ -112,6 +112,7 @@ export default {
     methods: {
         showmodal() {
             this.$emit('showModal',this.svgColor)
+            console.log(this.svgColor);
         }
     },
 }

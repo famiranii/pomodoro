@@ -2,13 +2,16 @@
   <div :class="color.bgColor" class="pomodoro-modal">
     <div>
       <h4 class="font-bold text-2xl">setting</h4>
-      <svg @click="closeModal" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g id="ph:x">
-          <path id="Vector"
-            d="M14.4633 13.6615C14.5689 13.7682 14.6281 13.9122 14.6281 14.0623C14.6281 14.2124 14.5689 14.3564 14.4633 14.4631C14.3558 14.567 14.212 14.6252 14.0625 14.6252C13.9129 14.6252 13.7692 14.567 13.6617 14.4631L8.99999 9.79433L4.33827 14.4631C4.23076 14.567 4.08705 14.6252 3.93749 14.6252C3.78793 14.6252 3.64423 14.567 3.53671 14.4631C3.43108 14.3564 3.37183 14.2124 3.37183 14.0623C3.37183 13.9122 3.43108 13.7682 3.53671 13.6615L8.20546 8.9998L3.53671 4.33808C3.44701 4.22879 3.40117 4.09004 3.40811 3.94882C3.41504 3.8076 3.47426 3.67401 3.57423 3.57404C3.67421 3.47406 3.8078 3.41485 3.94901 3.40791C4.09023 3.40098 4.22898 3.44682 4.33827 3.53651L8.99999 8.20526L13.6617 3.53651C13.771 3.44682 13.9097 3.40098 14.051 3.40791C14.1922 3.41485 14.3258 3.47406 14.4257 3.57404C14.5257 3.67401 14.5849 3.8076 14.5919 3.94882C14.5988 4.09004 14.553 4.22879 14.4633 4.33808L9.79452 8.9998L14.4633 13.6615Z"
-            :fill=color.btnColor />
-        </g>
-      </svg>
+      <button>
+        <svg @click="closeModal" width="18" height="18" viewBox="0 0 18 18" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <g id="ph:x">
+            <path id="Vector"
+              d="M14.4633 13.6615C14.5689 13.7682 14.6281 13.9122 14.6281 14.0623C14.6281 14.2124 14.5689 14.3564 14.4633 14.4631C14.3558 14.567 14.212 14.6252 14.0625 14.6252C13.9129 14.6252 13.7692 14.567 13.6617 14.4631L8.99999 9.79433L4.33827 14.4631C4.23076 14.567 4.08705 14.6252 3.93749 14.6252C3.78793 14.6252 3.64423 14.567 3.53671 14.4631C3.43108 14.3564 3.37183 14.2124 3.37183 14.0623C3.37183 13.9122 3.43108 13.7682 3.53671 13.6615L8.20546 8.9998L3.53671 4.33808C3.44701 4.22879 3.40117 4.09004 3.40811 3.94882C3.41504 3.8076 3.47426 3.67401 3.57423 3.57404C3.67421 3.47406 3.8078 3.41485 3.94901 3.40791C4.09023 3.40098 4.22898 3.44682 4.33827 3.53651L8.99999 8.20526L13.6617 3.53651C13.771 3.44682 13.9097 3.40098 14.051 3.40791C14.1922 3.41485 14.3258 3.47406 14.4257 3.57404C14.5257 3.67401 14.5849 3.8076 14.5919 3.94882C14.5988 4.09004 14.553 4.22879 14.4633 4.33808L9.79452 8.9998L14.4633 13.6615Z"
+              :fill=color.btnColor />
+          </g>
+        </svg>
+      </button>
     </div>
     <div>
       <span>Dark mode</span>
@@ -20,9 +23,7 @@
     <div>
       <span>Focus lenght</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <div class="w-2/3 flex items-center justify-center">
-          {{ $store.state.focusTime }}
-        </div>
+        <input class="w-2/3 flex items-center justify-center" v-model="focusTime" @input="renderFocusTime">
         <div class="w-1/3 divide-y">
           <button @click="incrementFocus" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +45,7 @@
     <div>
       <span>Pomodoros until long break</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <div class="w-2/3 flex items-center justify-center">
-          {{ $store.state.pomodorosUntilLongBreak }}
-        </div>
+        <input class="w-2/3 flex items-center justify-center" v-model="untilLongBreak">
         <div class="w-1/3 divide-y">
           <button @click="incrementPomodorosUntilLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,9 +67,7 @@
     <div>
       <span>Short break lenght</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <div class="w-2/3 flex items-center justify-center">
-          {{ $store.state.shortBreakTime }}
-        </div>
+        <input class="w-2/3 flex items-center justify-center" v-model="shortBreakTime" @input="renderShortBreakTime">
         <div class="w-1/3 divide-y">
           <button @click="incrementShortBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,9 +89,7 @@
     <div>
       <span>Long break lenght</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <div class="w-2/3 flex items-center justify-center">
-          {{ $store.state.longBreakTime }}
-        </div>
+        <input class="w-2/3 flex items-center justify-center" v-model="longBreakTime" @input="renderLongBreakTime">
         <div class="w-1/3 divide-y">
           <button @click="incrementLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,31 +134,24 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     color: Object
   },
   data() {
     return {
+      focusTime: localStorage.getItem('focusTime'),
+      shortBreakTime: localStorage.getItem('shortBreakTime'),
+      longBreakTime: localStorage.getItem('longBreakTime'),
+      untilLongBreak: 4,
       closeModalSit: false,
       darkMode: false,
       autoResume: false,
       sound: false,
-      notifications:false,
+      notifications: false,
     }
   },
   methods: {
-    ...mapActions([
-      'incrementFocus',
-      'decrementFocus',
-      'incrementLongBreak',
-      'decrementLongBreak',
-      'incrementPomodorosUntilLongBreak',
-      'decrementPomodorosUntilLongBreak',
-      'incrementShortBreak',
-      'decrementShortBreak'
-    ]),
     closeModal() {
       this.closeModalSit = true
       this.$emit("closeModal", this.closeModalSit)
@@ -185,15 +173,28 @@ export default {
       this.notifications = !this.notifications
       this.$emit('renderNotifications', this.notifications)
     },
+    renderFocusTime() {
+      localStorage.setItem('focusTime', this.focusTime)
+    },
+    renderShortBreakTime() {
+      localStorage.setItem('shortBreakTime', this.shortBreakTime)
+    },
+    renderLongBreakTime() {
+      localStorage.setItem('longBreakTime', this.longBreakTime)
+    },
+
   },
-  computed: {
-    ...mapState([
-      'focusTime',
-      'shortBreakTime',
-      'longBreakTime',
-      'pomodorosUntilLongBreak'
-    ]),
-  }
+  created() {
+    if (localStorage.getItem('focusTime') == null) {
+      this.focusTime = 25
+    }
+    if (localStorage.getItem('shortBreakTime') == null) {
+      this.shortBreakTime = 5
+    }
+    if (localStorage.getItem('longBreakTime') == null) {
+      this.longBreakTime = 10
+    }
+  },
 }
 </script>
 

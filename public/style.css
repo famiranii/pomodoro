@@ -107,15 +107,16 @@
 }
 
 .dropdown {
-  width: 160px;
+  width: 160px !important;
   height: 100px;
   position: absolute;
-  top: 69%;
+  top: 59%;
   left: 8%;
   border-radius: 12px;
   box-shadow: 0px 5.5px 16px 0px rgba(0, 0, 0, 0.19),
     0px 1px 6px 0px rgba(0, 0, 0, 0.04);
   padding: 8px;
+  z-index: 100;
 }
 
 .pomodoro-modal {
