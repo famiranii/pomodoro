@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-3 items-center cursor-pointer">
+    <div class="grid grid-cols-3 items-center cursor-pointer pt-2">
         <div class="col-span-2 flex">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="ph:chart-bar-fill">
@@ -33,7 +33,7 @@
             </svg>
         </div>
     </div>
-    <div @click="showmodal" class="grid grid-cols-3 items-center cursor-pointer">
+    <div @click="showmodal" class="grid grid-cols-3 items-center cursor-pointer pt-2">
         <div class="col-span-2 flex">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="ph:chart-bar-fill">
@@ -68,7 +68,7 @@
 
         </div>
     </div>
-    <div class="grid grid-cols-3 items-center cursor-pointer">
+    <div class="grid grid-cols-3 items-center cursor-pointer pt-2">
         <div class="col-span-2 flex">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="ph:key-return-fill">

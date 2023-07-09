@@ -45,7 +45,7 @@
     <div>
       <span>Pomodoros until long break</span>
       <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <input class="w-2/3 flex items-center justify-center" v-model="untilLongBreak">
+        <input class="w-2/3 flex items-center justify-center" v-model="untilLongBreak" @input="renderUntilLongBreak">
         <div class="w-1/3 divide-y">
           <button @click="incrementPomodorosUntilLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +143,7 @@ export default {
       focusTime: localStorage.getItem('focusTime'),
       shortBreakTime: localStorage.getItem('shortBreakTime'),
       longBreakTime: localStorage.getItem('longBreakTime'),
-      untilLongBreak: 4,
+      untilLongBreak: localStorage.getItem('untilLongBreak'),
       closeModalSit: false,
       darkMode: false,
       autoResume: false,
@@ -182,6 +182,9 @@ export default {
     renderLongBreakTime() {
       localStorage.setItem('longBreakTime', this.longBreakTime)
     },
+    renderUntilLongBreak(){
+      localStorage.setItem('untilLongBreak',this.untilLongBreak)
+    }
 
   },
   created() {
@@ -193,6 +196,9 @@ export default {
     }
     if (localStorage.getItem('longBreakTime') == null) {
       this.longBreakTime = 10
+    }
+    if (localStorage.getItem('untilLongBreak') == null) {
+      localStorage.setItem('untilLongBreak',4)
     }
   },
 }

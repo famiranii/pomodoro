@@ -1,7 +1,6 @@
 <template>
-  <div class="grid grid-cols-12 h-screen w-screen">
-    <div class="col-span-1"></div>
-    <div class="h-screen col-span-10 grid grid-cols-5 bg-white">
+  <div class="grid grid-cols-12 h-screen w-screen px-12 xl:px-24">
+    <div class="h-screen col-span-12 grid grid-cols-5 bg-white">
       <div class="col-span-2 py-16 ">
         <div class="flex">
           <svg class="pomo-logo" xmlns="http://www.w3.org/2000/svg" width="107" height="107" viewBox="0 0 122 107"
@@ -24,14 +23,14 @@
 
 
       <div class="cornometres col-span-3 flex relative">
-        <focusTime @showModal="showModal" @click="breakClicked = 1"
+        <focusTime @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('focus')"
           :class="{ 'absolute z-30': breakClicked === 1, 'mx-auto z-20': breakClicked !== 1 }"></focusTime>
 
-        <shortBreak @showModal="showModal" @click="breakClicked = 2"
+        <shortBreak @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('short')"
           :class="{ 'mx-auto z-20': breakClicked === 1, 'absolute z-30': breakClicked === 2, 'absolute end-0 z-1': breakClicked === 3 }">
 
         </shortBreak>
-        <longBreak @showModal="showModal" @click="breakClicked = 3"
+        <longBreak @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('long')"
           :class="{ 'absolute end-0 z-1': breakClicked !== 3, 'absolute z-30': breakClicked === 3 }"></longBreak>
       </div>
 
@@ -60,6 +59,7 @@ export default {
   data() {
     return {
       breakClicked: 1,
+      counter: 0,
       modalColor: [
         { bgColor: 'focus-color', btnColor: '#471515', class: 'hidden' },
         { bgColor: 'short-break-color', btnColor: '#14401D', class: 'hidden' },
@@ -86,6 +86,28 @@ export default {
           }
         });
       }
+    },
+    changeItem(page) {
+      if (page === 'focus' && this.breakClicked !== 1) {
+        this.breakClicked = 1
+      }
+      if (page === 'short' && this.breakClicked !== 2) {
+        this.breakClicked = 2
+      }
+      if (page === 'long' && this.breakClicked !== 3) {
+        this.breakClicked = 3
+      }
+
+    },
+    nextItem(pagesManner) {
+      setTimeout(() => {
+        this.counter++;
+        if ((this.counter + 1) % (localStorage.getItem('untilLongBreak') * 2) === 0) {
+          this.breakClicked = 3;
+        } else {
+          this.breakClicked = pagesManner;
+        }
+      }, 20);
     }
   },
 }

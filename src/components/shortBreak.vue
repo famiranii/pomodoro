@@ -1,5 +1,5 @@
 <template>
-    <div class="short-break-color short-break py-32 w-5/12">
+    <div class="short-break-color short-break py-32 w-5/12 cursor-default">
         <div
             class="short-break-title flex items-center px-3 py-0.5 mb-16 font-medium space-x-1.5 text-lg rounded-3xl border-2">
             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@
 
 
 
-        <div class="flex items-center space-x-3 mt-3 z-10">
+        <div :class="{ 'pointer-events-none': closeBtn !== 2 }" class="flex items-center space-x-3 mt-3 z-10">
             <button id="dropdownBtn" @click="toggleDropdown"
                 class="short-break-btn w-12 h-12 rounded-2xl flex items-center justify-center">
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
                     </g>
                 </svg>
             </button>
-            <button class="short-break-btn w-12 h-12 rounded-2xl flex items-center justify-center">
+            <button @click="nextItem" class="short-break-btn w-12 h-12 rounded-2xl flex items-center justify-center">
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="ph:fast-forward-fill" clip-path="url(#clip0_104_1901)">
                         <path id="Vector"
@@ -83,6 +83,9 @@ export default {
     name: 'shortBreakTime',
     components: {
         dropDown,
+    },
+    props:{
+        closeBtn:parseInt
     },
     data() {
         return {
@@ -140,6 +143,9 @@ export default {
         showModal(color) {
             this.$emit('showModal', color)
             console.log(color);
+        },
+        nextItem() {
+            this.$emit('nextItem',1)
         },
     },
     computed: {
