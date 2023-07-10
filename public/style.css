@@ -139,6 +139,11 @@
   align-self: stretch;
 }
 
-.setting-btn{
-    background-color:  rgba(0, 0, 0, 0.24);
+.setting-btn {
+  background-color: rgba(0, 0, 0, 0.24);
+}
+
+input {
+  text-align: center;
+  background-color: transparent;
 }

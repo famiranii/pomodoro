@@ -19,7 +19,7 @@
 
 
 
-        <div class="flex flex-col items-center relative short-break-timer">
+        <div :class="{ 'font-extrabold': fontBold }" class="flex flex-col items-center relative short-break-timer">
             <span>{{ padZero(shortBreakTime) }}</span>
             <span class="pt-20 pb-10">{{ showSeconds }}</span>
         </div>
@@ -97,6 +97,7 @@ export default {
             intervalId: null,
             isIconChanged: true,
             showDropdown: true,
+            fontBold :false
         }
     },
     created() {
@@ -116,6 +117,7 @@ export default {
     },
     methods: {
         runOrpauseTimer() {
+            this.fontBold =true
             if (this.isIconChanged) {
                 this.intervalId = setInterval(this.decreasTime, 1000)
                 this.isIconChanged = false
@@ -130,6 +132,7 @@ export default {
                 this.$emit('nextItem',1)
                 this.shortBreakTime = localStorage.getItem('shortBreakTime')
                 this.isIconChanged = true
+                this.fontBold =false
             } else {
                 this.seconds--;
                 this.shortBreakTime = this.padZero(Math.floor(this.seconds / 60))
@@ -163,6 +166,7 @@ export default {
             this.seconds = this.shortBreakTime * 60
             this.showSeconds = this.padZero(0)
             this.isIconChanged=true
+            this.fontBold =false
         },
     },
     computed: {

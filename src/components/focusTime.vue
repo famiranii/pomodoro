@@ -16,7 +16,7 @@
             <span>Focus</span>
         </div>
 
-        <div class="focus-timer flex flex-col items-center relative">
+        <div :class="{ 'font-extrabold': fontBold }" class=" focus-timer flex flex-col items-center relative">
             <span>{{ padZero(focusTime) }}</span>
             <span class="pt-20 pb-10">{{ showSeconds }}</span>
         </div>
@@ -79,7 +79,7 @@ export default {
     name: 'focusTime',
     props: {
         closeBtn: parseInt,
-        autoResume:parseInt
+        autoResume: parseInt
     },
     components: {
         dropDown,
@@ -93,6 +93,7 @@ export default {
             intervalId: null,
             isIconChanged: true,
             showDropdown: true,
+            fontBold:false,
         }
     },
     created() {
@@ -113,6 +114,7 @@ export default {
     },
     methods: {
         runOrpauseTimer() {
+            this.fontBold = true
             if (this.isIconChanged) {
                 this.intervalId = setInterval(this.decreasTime, 1000)
                 this.isIconChanged = false
@@ -125,9 +127,10 @@ export default {
         decreasTime() {
             if (this.seconds == 0) {
                 clearInterval(this.intervalId)
-                this.$emit('nextItem',2)
+                this.$emit('nextItem', 2)
                 this.focusTime = localStorage.getItem('focusTime')
                 this.isIconChanged = true
+                this.fontBold =false
             } else {
                 this.seconds--;
                 this.focusTime = this.padZero(Math.floor(this.seconds / 60))
@@ -158,10 +161,11 @@ export default {
         nextItem() {
             this.$emit('nextItem', 2)
             clearInterval(this.intervalId)
-            this.focusTime=localStorage.getItem('focusTime')
+            this.focusTime = localStorage.getItem('focusTime')
             this.seconds = this.focusTime * 60
             this.showSeconds = this.padZero(0)
-            this.isIconChanged=true
+            this.isIconChanged = true
+            this.fontBold=false
         },
     },
     computed: {

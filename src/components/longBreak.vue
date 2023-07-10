@@ -19,7 +19,7 @@
 
 
 
-        <div class="long-break-timer flex flex-col items-center relative">
+        <div :class="{ 'font-extrabold': fontBold }" class="long-break-timer flex flex-col items-center relative">
             <span>{{ padZero(longBreakTime) }}</span>
             <span class="pt-20 pb-10">{{ showSeconds }}</span>
         </div>
@@ -85,7 +85,7 @@ export default {
     },
     props: {
         closeBtn: parseInt,
-        autoResume:parseInt
+        autoResume: parseInt
     },
     data() {
         return {
@@ -96,6 +96,7 @@ export default {
             intervalId: null,
             isIconChanged: true,
             showDropdown: true,
+            fontBold: false,
         }
     },
     watch: {
@@ -116,6 +117,7 @@ export default {
     },
     methods: {
         runOrpauseTimer() {
+            this.fontBold = true
             if (this.isIconChanged) {
                 this.intervalId = setInterval(this.decreasTime, 1000)
                 this.isIconChanged = false
@@ -127,9 +129,10 @@ export default {
         decreasTime() {
             if (this.seconds == 0) {
                 clearInterval(this.intervalId)
-                this.$emit('nextItem',1)
+                this.$emit('nextItem', 1)
                 this.longBreakTime = localStorage.getItem('longBreakTime')
                 this.isIconChanged = true
+                this.fontBold =false
             } else {
                 this.seconds--;
                 this.longBreakTime = this.padZero(Math.floor(this.seconds / 60))
@@ -159,10 +162,11 @@ export default {
         nextItem() {
             this.$emit('nextItem', 1)
             clearInterval(this.intervalId)
-            this.longBreakTime=localStorage.getItem('longBreakTime')
+            this.longBreakTime = localStorage.getItem('longBreakTime')
             this.seconds = this.longBreakTime * 60
             this.showSeconds = this.padZero(0)
-            this.isIconChanged=true
+            this.isIconChanged = true
+            this.fontBold = false
         },
     },
     computed: {

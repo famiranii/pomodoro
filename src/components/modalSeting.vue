@@ -22,8 +22,8 @@
     </div>
     <div>
       <span>Focus lenght</span>
-      <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <input class="w-2/3 flex items-center justify-center" v-model="focusTime" @input="renderFocusTime">
+      <div class="w-24 h-10 flex rounded-lg border divide-x">
+        <input class="w-2/3" v-model="focusTime" @input="renderFocusTime">
         <div class="w-1/3 divide-y">
           <button @click="incrementFocus" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,8 +44,8 @@
     </div>
     <div>
       <span>Pomodoros until long break</span>
-      <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <input class="w-2/3 flex items-center justify-center" v-model="untilLongBreak" @input="renderUntilLongBreak">
+      <div class="w-24 h-10 flex rounded-lg border divide-x">
+        <input class="w-2/3" v-model="untilLongBreak" @input="renderUntilLongBreak">
         <div class="w-1/3 divide-y">
           <button @click="incrementPomodorosUntilLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,8 +66,8 @@
     </div>
     <div>
       <span>Short break lenght</span>
-      <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <input class="w-2/3 flex items-center justify-center" v-model="shortBreakTime" @input="renderShortBreakTime">
+      <div class="w-24 h-10 flex rounded-lg border divide-x">
+        <input class="w-2/3" v-model="shortBreakTime" @input="renderShortBreakTime">
         <div class="w-1/3 divide-y">
           <button @click="incrementShortBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,8 +88,8 @@
     </div>
     <div>
       <span>Long break lenght</span>
-      <div class="w-20 h-10 flex rounded-lg border divide-x">
-        <input class="w-2/3 flex items-center justify-center" v-model="longBreakTime" @input="renderLongBreakTime">
+      <div class="w-24 h-10 flex rounded-lg border divide-x">
+        <input class="w-2/3" v-model="longBreakTime" @input="renderLongBreakTime">
         <div class="w-1/3 divide-y">
           <button @click="incrementLongBreak" class="h-1/2 flex items-center justify-center">
             <svg width="30" height="18" viewBox="0 0 30 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,15 +159,7 @@ export default {
     },
     renderDarkMode() {
       this.darkMode = !this.darkMode
-      this.$emit('renderDarkMode', this.darkMode)
-    },
-    renderSound() {
-      this.sound = !this.sound
-      this.$emit('renderSound', this.sound)
-    },
-    renderNotifications() {
-      this.notifications = !this.notifications
-      this.$emit('renderNotifications', this.notifications)
+      localStorage.setItem('darkMode')
     },
     renderFocusTime() {
       localStorage.setItem('focusTime', this.focusTime)
