@@ -20,7 +20,7 @@
 
 
         <div class="flex flex-col items-center relative short-break-timer">
-            <span>{{padZero(shortBreakTime)  }}</span>
+            <span>{{ padZero(shortBreakTime) }}</span>
             <span class="pt-20 pb-10">{{ showSeconds }}</span>
         </div>
         <div :class="{ 'hidden': showDropdown, }" class="dropdown short-break-color">
@@ -84,8 +84,9 @@ export default {
     components: {
         dropDown,
     },
-    props:{
-        closeBtn:parseInt
+    props: {
+        closeBtn: parseInt,
+        autoResume: parseInt
     },
     data() {
         return {
@@ -104,10 +105,14 @@ export default {
         if (localStorage.getItem('shortBreakTime') === null) {
             this.shortBreakTime = 5
         }
-        if (this.updateValue) {
-            this.shortBreakTime = localStorage.getItem('shortBreakTime')
-        }
         this.seconds = this.shortBreakTime * 60
+    },
+    watch: {
+        autoResume(newValue) {
+            if (newValue === 2) {
+                this.runOrpauseTimer();
+            }
+        }
     },
     methods: {
         runOrpauseTimer() {
@@ -120,9 +125,16 @@ export default {
             }
         },
         decreasTime() {
-            this.seconds--;
-            this.shortBreakTime = this.padZero(Math.floor(this.seconds / 60))
-            this.showSeconds = this.padZero(this.seconds % 60)
+            if (this.seconds == 0) {
+                clearInterval(this.intervalId)
+                this.$emit('nextItem',1)
+                this.shortBreakTime = localStorage.getItem('shortBreakTime')
+                this.isIconChanged = true
+            } else {
+                this.seconds--;
+                this.shortBreakTime = this.padZero(Math.floor(this.seconds / 60))
+                this.showSeconds = this.padZero(this.seconds % 60)
+            }
         },
         toggleDropdown() {
             this.showDropdown = !this.showDropdown
@@ -145,7 +157,12 @@ export default {
             console.log(color);
         },
         nextItem() {
-            this.$emit('nextItem',1)
+            this.$emit('nextItem', 1)
+            clearInterval(this.intervalId)
+            this.shortBreakTime=localStorage.getItem('shortBreakTime')
+            this.seconds = this.shortBreakTime * 60
+            this.showSeconds = this.padZero(0)
+            this.isIconChanged=true
         },
     },
     computed: {

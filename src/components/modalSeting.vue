@@ -146,7 +146,7 @@ export default {
       untilLongBreak: localStorage.getItem('untilLongBreak'),
       closeModalSit: false,
       darkMode: false,
-      autoResume: false,
+      autoResume: localStorage.getItem('auto'),
       sound: false,
       notifications: false,
     }
@@ -160,10 +160,6 @@ export default {
     renderDarkMode() {
       this.darkMode = !this.darkMode
       this.$emit('renderDarkMode', this.darkMode)
-    },
-    renderAutoResume() {
-      this.autoResume = !this.autoResume
-      this.$emit('renderAutoResume', this.autoResume)
     },
     renderSound() {
       this.sound = !this.sound
@@ -182,23 +178,27 @@ export default {
     renderLongBreakTime() {
       localStorage.setItem('longBreakTime', this.longBreakTime)
     },
-    renderUntilLongBreak(){
-      localStorage.setItem('untilLongBreak',this.untilLongBreak)
-    }
+    renderUntilLongBreak() {
+      localStorage.setItem('untilLongBreak', this.untilLongBreak)
+    },
+    renderAutoResume() {
+      this.autoResume = !this.autoResume
+      localStorage.setItem('auto', this.autoResume)
+    },
 
   },
   created() {
     if (localStorage.getItem('focusTime') == null) {
-      this.focusTime = 25
+      localStorage.setItem('focusTime', 25)
     }
     if (localStorage.getItem('shortBreakTime') == null) {
-      this.shortBreakTime = 5
+      localStorage.setItem('shortBreakTime', 5)
     }
     if (localStorage.getItem('longBreakTime') == null) {
-      this.longBreakTime = 10
+      localStorage.setItem('longBreakTime', 15)
     }
     if (localStorage.getItem('untilLongBreak') == null) {
-      localStorage.setItem('untilLongBreak',4)
+      localStorage.setItem('untilLongBreak', 4)
     }
   },
 }

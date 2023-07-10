@@ -54,8 +54,7 @@
                     </g>
                 </svg>
             </button>
-            <button @click="nextItem"
-                class="focus-btn w-12 h-12 rounded-2xl flex items-center justify-center">
+            <button @click="nextItem" class="focus-btn w-12 h-12 rounded-2xl flex items-center justify-center">
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g id="ph:fast-forward-fill" clip-path="url(#clip0_104_1901)">
                         <path id="Vector"
@@ -79,7 +78,8 @@ import dropDown from './dropDown.vue';
 export default {
     name: 'focusTime',
     props: {
-        closeBtn: parseInt
+        closeBtn: parseInt,
+        autoResume:parseInt
     },
     components: {
         dropDown,
@@ -101,25 +101,39 @@ export default {
         if (localStorage.getItem('focusTime') === null) {
             this.focusTime = 25
         }
-        if (this.updateValue) {
-            this.focusTime = localStorage.getItem('focusTime')
-        }
         this.seconds = this.focusTime * 60
+    },
+    watch: {
+        autoResume(newValue) {
+            if (newValue === 1) {
+                this.runOrpauseTimer();
+                console.log(newValue);
+            }
+        }
     },
     methods: {
         runOrpauseTimer() {
             if (this.isIconChanged) {
                 this.intervalId = setInterval(this.decreasTime, 1000)
                 this.isIconChanged = false
+
             } else {
                 this.isIconChanged = true
                 clearInterval(this.intervalId)
             }
         },
         decreasTime() {
-            this.seconds--;
-            this.focusTime = this.padZero(Math.floor(this.seconds / 60))
-            this.showSeconds = this.padZero(this.seconds % 60)
+            if (this.seconds == 0) {
+                clearInterval(this.intervalId)
+                this.$emit('nextItem',2)
+                this.focusTime = localStorage.getItem('focusTime')
+                this.isIconChanged = true
+            } else {
+                this.seconds--;
+                this.focusTime = this.padZero(Math.floor(this.seconds / 60))
+                this.showSeconds = this.padZero(this.seconds % 60)
+            }
+
         },
         toggleDropdown() {
             this.showDropdown = !this.showDropdown
@@ -142,7 +156,12 @@ export default {
             console.log(color);
         },
         nextItem() {
-            this.$emit('nextItem',2)
+            this.$emit('nextItem', 2)
+            clearInterval(this.intervalId)
+            this.focusTime=localStorage.getItem('focusTime')
+            this.seconds = this.focusTime * 60
+            this.showSeconds = this.padZero(0)
+            this.isIconChanged=true
         },
     },
     computed: {

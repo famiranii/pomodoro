@@ -24,13 +24,16 @@
 
       <div class="cornometres col-span-3 flex relative">
         <focusTime @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('focus')"
-          :class="{ 'absolute z-30': breakClicked === 1, 'mx-auto z-20': breakClicked !== 1 }"></focusTime>
+          :autoResume="autoResume" :class="{ 'absolute z-30': breakClicked === 1, 'mx-auto z-20': breakClicked !== 1 }">
+        </focusTime>
 
         <shortBreak @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('short')"
+          :autoResume="autoResume"
           :class="{ 'mx-auto z-20': breakClicked === 1, 'absolute z-30': breakClicked === 2, 'absolute end-0 z-1': breakClicked === 3 }">
 
         </shortBreak>
         <longBreak @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('long')"
+          :autoResume="autoResume"
           :class="{ 'absolute end-0 z-1': breakClicked !== 3, 'absolute z-30': breakClicked === 3 }"></longBreak>
       </div>
 
@@ -59,16 +62,14 @@ export default {
   data() {
     return {
       breakClicked: 1,
-      counter: 0,
+      counter: 1,
+      autoResume: 0,
       modalColor: [
         { bgColor: 'focus-color', btnColor: '#471515', class: 'hidden' },
         { bgColor: 'short-break-color', btnColor: '#14401D', class: 'hidden' },
         { bgColor: 'long-break-color', btnColor: '#153047', class: 'hidden' },
       ],
     }
-  },
-  computed: {
-
   },
   methods: {
     showModal(color) {
@@ -101,11 +102,15 @@ export default {
     },
     nextItem(pagesManner) {
       setTimeout(() => {
-        this.counter++;
-        if ((this.counter + 1) % (localStorage.getItem('untilLongBreak') * 2) === 0) {
+        if ((this.counter) % (localStorage.getItem('untilLongBreak') * 2) === 0) {
           this.breakClicked = 3;
         } else {
           this.breakClicked = pagesManner;
+        }
+        this.counter++;
+        if (localStorage.getItem('auto')==true) {
+          this.autoResume = this.breakClicked
+          console.log('fa');
         }
       }, 20);
     }

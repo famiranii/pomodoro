@@ -84,7 +84,8 @@ export default {
         dropDown,
     },
     props: {
-        closeBtn: parseInt
+        closeBtn: parseInt,
+        autoResume:parseInt
     },
     data() {
         return {
@@ -97,14 +98,19 @@ export default {
             showDropdown: true,
         }
     },
+    watch: {
+        autoResume(newValue) {
+            if (newValue === 3) {
+                this.runOrpauseTimer();
+                console.log(newValue);
+            }
+        }
+    },
     created() {
         this.showSeconds = this.padZero(this.showSeconds)
         document.addEventListener('click', this.handleDocumentClick);
         if (localStorage.getItem('longBreakTime') === null) {
             this.longBreakTime = 10
-        }
-        if (this.updateValue) {
-            this.longBreakTime = localStorage.getItem('longBreakTime')
         }
         this.seconds = this.longBreakTime * 60
     },
@@ -119,9 +125,16 @@ export default {
             }
         },
         decreasTime() {
-            this.seconds--;
-            this.longBreakTime = this.padZero(Math.floor(this.seconds / 60))
-            this.showSeconds = this.padZero(this.seconds % 60)
+            if (this.seconds == 0) {
+                clearInterval(this.intervalId)
+                this.$emit('nextItem',1)
+                this.longBreakTime = localStorage.getItem('longBreakTime')
+                this.isIconChanged = true
+            } else {
+                this.seconds--;
+                this.longBreakTime = this.padZero(Math.floor(this.seconds / 60))
+                this.showSeconds = this.padZero(this.seconds % 60)
+            }
         },
         toggleDropdown() {
             this.showDropdown = !this.showDropdown
@@ -145,6 +158,11 @@ export default {
         },
         nextItem() {
             this.$emit('nextItem', 1)
+            clearInterval(this.intervalId)
+            this.longBreakTime=localStorage.getItem('longBreakTime')
+            this.seconds = this.longBreakTime * 60
+            this.showSeconds = this.padZero(0)
+            this.isIconChanged=true
         },
     },
     computed: {
