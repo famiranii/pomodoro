@@ -1,16 +1,18 @@
 <template>
-  <div class="grid grid-cols-12 h-screen w-screen px-12 xl:px-24">
-    <div class="h-screen col-span-12 grid grid-cols-5 bg-white">
-      <div class="col-span-2 py-16 ">
+  <div :class="{ 'darkMode': darkMode }" class="grid  h-screen w-screen px-12 xl:px-24">
+    <div :class="{ 'darkMode': darkMode }" class="h-screen  grid grid-cols-5 bg-white">
+      <div class="hidden lg:block col-span-2 py-16">
         <div class="flex">
-          <svg class="pomo-logo" xmlns="http://www.w3.org/2000/svg" width="107" height="107" viewBox="0 0 122 107"
-            fill="none">
-            <rect x="3.78846" y="3.9423" width="113.654" height="98.4999" rx="26.5192" fill="#FFD9D9" />
-            <path d="M60.6154 24.7788V55.0865L87.1346 81.6057" stroke="#471515" stroke-width="15.1538"
-              stroke-linecap="round" stroke-linejoin="round" />
-            <rect x="3.78846" y="3.9423" width="113.654" height="98.4999" rx="26.5192" stroke="#471515"
-              stroke-width="7.57692" />
-          </svg>
+          <div class="ps-12">
+            <svg class="pomo-logo" xmlns="http://www.w3.org/2000/svg" width="107" height="107" viewBox="0 0 122 107"
+              fill="none">
+              <rect x="3.78846" y="3.9423" width="113.654" height="98.4999" rx="26.5192" fill="#FFD9D9" />
+              <path d="M60.6154 24.7788V55.0865L87.1346 81.6057" stroke="#471515" stroke-width="15.1538"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <rect x="3.78846" y="3.9423" width="113.654" height="98.4999" rx="26.5192" stroke="#471515"
+                stroke-width="7.57692" />
+            </svg>
+          </div>
           <h1 class="title text-7xl font-extrabold p-3">Pomo</h1>
         </div>
         <div class=" mt-36 text-[50px] font-extrabold leading-[1.2]">
@@ -22,26 +24,27 @@
 
 
 
-      <div class="cornometres col-span-3 flex relative">
+      <div class="cornometres col-span-5 lg:col-span-3 flex relative">
         <focusTime @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('focus')"
-          :autoResume="autoResume" :class="{ 'absolute z-30': breakClicked === 1, 'mx-auto z-20': breakClicked !== 1 }">
+          :autoResume="autoResume" :darkMode="darkMode"
+          :class="{ 'absolute z-30': breakClicked === 1, 'md:mx-auto z-20': breakClicked !== 1 }">
         </focusTime>
 
         <shortBreak @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('short')"
-          :autoResume="autoResume"
-          :class="{ 'mx-auto z-20': breakClicked === 1, 'absolute z-30': breakClicked === 2, 'absolute end-0 z-1': breakClicked === 3 }">
+          :autoResume="autoResume" :darkMode="darkMode"
+          :class="{ 'md:mx-auto z-20': breakClicked === 1, 'absolute z-30': breakClicked === 2, 'absolute md:end-0 z-1': breakClicked === 3 }">
 
         </shortBreak>
         <longBreak @showModal="showModal" :closeBtn="breakClicked" @nextItem="nextItem" @click="changeItem('long')"
-          :autoResume="autoResume"
-          :class="{ 'absolute end-0 z-1': breakClicked !== 3, 'absolute z-30': breakClicked === 3 }"></longBreak>
+          :autoResume="autoResume" :darkMode="darkMode"
+          :class="{ 'absolute md:end-0 z-1': breakClicked !== 3, 'absolute z-30': breakClicked === 3 }"></longBreak>
       </div>
 
     </div>
 
     <modalSeting v-for="(item, index) in modalColor" :key="index" :color="item" :class="item.class"
-      @renderModalTimes="renderModalTimes" @closeModal="closeModal"
-      class=" z-50 absolute self-center justify-self-center"></modalSeting>
+      @closeModal="closeModal" @renderDarkMode="renderDarkMode" class=" z-50 absolute self-center justify-self-center">
+    </modalSeting>
 
   </div>
 </template>
@@ -69,6 +72,7 @@ export default {
         { bgColor: 'short-break-color', btnColor: '#14401D', class: 'hidden' },
         { bgColor: 'long-break-color', btnColor: '#153047', class: 'hidden' },
       ],
+      darkMode: localStorage.getItem('darkMode') === 'true'
     }
   },
   methods: {
@@ -76,6 +80,7 @@ export default {
       this.modalColor.forEach(element => {
         if (element.btnColor == color) {
           element.class = ''
+          console.log(this.darkMode);
         }
       });
     },
@@ -108,12 +113,16 @@ export default {
           this.breakClicked = pagesManner;
         }
         this.counter++;
-        if (localStorage.getItem('auto')==true) {
+        if (localStorage.getItem('auto') == true) {
           this.autoResume = this.breakClicked
-          console.log('fa');
         }
       }, 20);
+    },
+    renderDarkMode(darkMode) {
+      this.darkMode = darkMode
     }
   },
+
 }
+
 </script>

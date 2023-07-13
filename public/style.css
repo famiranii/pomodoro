@@ -24,7 +24,7 @@
 .focus,
 .short-break,
 .long-break {
-  box-shadow: 48px 0px 48px -32px rgba(0, 0, 0, 0.25);
+  box-shadow: 48px 0px 48px -32px rgba(58, 58, 58, 0.25);
   padding: 0px 48px;
   display: flex;
   flex-direction: column;
@@ -46,8 +46,8 @@
 }
 
 .focus-title {
-  border-color: var(--red);
-  background-color: var(--red-bg);
+  border-color: var(--red) !important;
+  background-color: var(--red-bg) !important;
   color: var(--red);
 }
 
@@ -71,9 +71,10 @@
 }
 
 .short-break-title {
-  border-color: var(--green);
-  background-color: var(--green-bg);
+  border-color: var(--green) !important;
+  background-color: var(--green-bg) !important;
   color: var(--green);
+  min-width: 160px;
 }
 
 .short-break-timer {
@@ -89,9 +90,10 @@
 }
 
 .long-break-title {
-  border-color: var(--blue);
-  background-color: var(--blue-bg);
+  border-color: var(--blue) !important;
+  background-color: var(--blue-bg) !important;
   color: var(--blue);
+  min-width: 160px;
 }
 
 .long-break-timer {
@@ -140,10 +142,32 @@
 }
 
 .setting-btn {
-  background-color: rgba(0, 0, 0, 0.24);
+  background-color: rgba(0, 0, 0, 0.24) !important;
 }
 
 input {
   text-align: center;
   background-color: transparent;
 }
+
+.darkMode{
+  background-color: #0D0404 !important;
+  color: #FFF2F2;
+}
+
+.darkMode-items{
+  background-color: #0D0404 !important;
+  color: #FFF2F2;
+  box-shadow: 48px 0px 48px -32px rgba(97, 96, 96, 0.11);
+}
+
+.darkMode-items > *{
+  background-color: #0D0404;
+  color: #f2f9ff;
+  border-color: #f2f9ff !important;
+}
+
+.bg-blue{
+  background-color: #3a41a0 !important;
+}
+
