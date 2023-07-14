@@ -48,8 +48,9 @@
 
   </div>
 </template>
-
+ 
 <script>
+
 import focusTime from './components/focusTime.vue'
 import modalSeting from './components/modalSeting.vue';
 import shortBreak from './components/shortBreak.vue';
@@ -65,7 +66,7 @@ export default {
   data() {
     return {
       breakClicked: 1,
-      counter: 1,
+      counter: 4,
       autoResume: 0,
       modalColor: [
         { bgColor: 'focus-color', btnColor: '#471515', class: 'hidden' },
@@ -107,9 +108,12 @@ export default {
     },
     nextItem(pagesManner) {
       setTimeout(() => {
-        if ((this.counter) % (localStorage.getItem('untilLongBreak') * 2) === 0) {
+        if ((this.counter) % (localStorage.getItem('untilLongBreak') * 2) === 0 && localStorage.getItem('untilLongBreak') != 1) {
           this.breakClicked = 3;
-        } else {
+        } else if (localStorage.getItem('untilLongBreak') == 1) {
+          this.breakClicked = this.counter % 3 + 1
+        }
+        else {
           this.breakClicked = pagesManner;
         }
         this.counter++;
