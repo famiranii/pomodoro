@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+:root {
+  --red: #471515;
+  --red-bg: rgba(255, 76, 76, 0.15);
+
+  --green: #14401d;
+  --green-bg: rgba(77, 218, 110, 0.15);
+
+  --blue: #153047;
+  --blue-bg: rgba(76, 172, 255, 0.15);
+}
+
+.pomo-logo {
+  padding-top: 1rem;
+  background-color: var(--red);
+  border-radius: 25px;
+}
+
+.focus,
+.short-break,
+.long-break {
+  box-shadow: 48px 0px 48px -32px rgba(58, 58, 58, 0.25);
+  padding: 0px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.focus-color {
+  background-color: #fff2f2;
+}
+
+.short-break-color {
+  background-color: #f2fff5;
+}
+
+.long-break-color {
+  background-color: #f2f9ff;
+}
+
+.focus-title {
+  border-color: var(--red) !important;
+  background-color: var(--red-bg) !important;
+  color: var(--red);
+}
+
+.focus-timer,
+.short-break-timer,
+.long-break-timer {
+  font-size: 13.125vw;
+  line-height: 0.4;
+}
+
+.focus-timer {
+  color: var(--red);
+}
+
+.focus-btn {
+  background-color: var(--red-bg);
+}
+
+.focus-play-btn {
+  background-color: rgba(255, 76, 76, 0.71);
+}
+
+.short-break-title {
+  border-color: var(--green) !important;
+  background-color: var(--green-bg) !important;
+  color: var(--green);
+  min-width: 160px;
+}
+
+.short-break-timer {
+  color: var(--green);
+}
+
+.short-break-btn {
+  background-color: var(--green-bg);
+}
+
+.short-break-play-btn {
+  background-color: rgba(77, 218, 110, 0.62);
+}
+
+.long-break-title {
+  border-color: var(--blue) !important;
+  background-color: var(--blue-bg) !important;
+  color: var(--blue);
+  min-width: 160px;
+}
+
+.long-break-timer {
+  color: var(--blue);
+}
+
+.long-break-btn {
+  background-color: var(--blue-bg);
+}
+
+.long-break-play-btn {
+  background-color: rgba(76, 172, 255, 0.62);
+}
+
+.dropdown {
+  width: 12rem !important;
+  height: 7.5rem;
+  position: absolute;
+  top: 57%;
+  left: 18%;
+  border-radius: 12px;
+  box-shadow: 0px 5.5px 16px 0px rgba(0, 0, 0, 0.19),
+    0px 1px 6px 0px rgba(0, 0, 0, 0.04);
+  padding: 8px;
+  z-index: 100;
+}
+
+.pomodoro-modal {
+  display: flex;
+  width: 28rem;
+  padding-bottom: 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  border-radius: 24px;
+  box-shadow: 0px 5.5px 16px 0px rgba(0, 0, 0, 0.19),
+    0px 1px 6px 0px rgba(0, 0, 0, 0.04);
+}
+
+@media only screen and (max-width: 700px) {
+  .pomodoro-modal{
+    width: 22rem;
+  }
+}
+
+.pomodoro-modal > * {
+  display: flex;
+  height: 4rem;
+  padding: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.setting-btn {
+  background-color: rgba(0, 0, 0, 0.24) !important;
+}
+
+input {
+  text-align: center;
+  background-color: transparent;
+}
+
+.darkMode{
+  background-color: #0D0404 !important;
+  color: #FFF2F2;
+}
+
+.darkMode-items{
+  background-color: #0D0404 !important;
+  color: #FFF2F2;
+  box-shadow: 48px 0px 48px -32px rgba(97, 96, 96, 0.11);
+}
+
+.darkMode-items > *{
+  background-color: #0D0404;
+  color: #f2f9ff;
+  border-color: #f2f9ff !important;
+}
+
+.bg-blue{
+  background-color: #3a41a0 !important;
+}
+

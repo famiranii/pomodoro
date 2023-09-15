@@ -144,7 +144,6 @@ export default {
       shortBreakTime: localStorage.getItem('shortBreakTime'),
       longBreakTime: localStorage.getItem('longBreakTime'),
       untilLongBreak: localStorage.getItem('untilLongBreak'),
-      closeModalSit: false,
       darkMode: localStorage.getItem('darkMode') === 'true',
       autoResume: localStorage.getItem('auto') === 'true',
       sound: false,
@@ -158,9 +157,7 @@ export default {
   },
   methods: {
     closeModal() {
-      this.closeModalSit = true
-      this.$emit("closeModal", this.closeModalSit)
-      this.closeModalSit = false
+      this.$emit("closeModal")
     },
     renderDarkMode() {
       this.darkMode = !this.darkMode
